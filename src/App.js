@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
-import { Button, ButtonGroup, Radio } from '@mui/material';
+import { Button, ButtonGroup, Radio, Select, Slider, MenuItem } from '@mui/material';
 import {Stack} from '@mui/material';
 import { Delete,Favorite,FavoriteBorder } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,6 +10,23 @@ function App() {
   const [disabledBtn, setDisabledBtn] = useState(false);
   const[name,setName] = useState([]);
   const[gender,setGender] = useState("male");
+  const[value,setValue] = useState([40,70]);
+  const[course,setCourse] = useState("");
+  const mark = [
+    {
+      value: 0,
+      label: 'start',
+    },
+    {
+      value: 100,
+      label: 'middle',
+    },
+    {
+      value: 200,
+      label: 'end',
+    },
+
+]
   function customMe(){
     setColor("secondary");
     setDisabledBtn(true);
@@ -24,6 +41,13 @@ function App() {
   function radioFunction(e){
     console.log(e.target.value);
     setGender(e.target.value);
+  }
+  function getValueSlider(e){
+    console.log(e.target.value);
+    setValue(e.target.value);
+  }
+  function updateCourse(e){
+    setCourse(e.target.value);
   }
   return (
     <div className="App">
@@ -74,6 +98,30 @@ function App() {
       onChange={(e)=>radioFunction(e)} 
        />
       </div>
+      <div style={{width:"300px",margin:"100px"}}>
+        <Slider
+        color='secondary'
+        // defaultValue={50}
+        value={value}
+        orientation='horizontal'
+        step={20}
+        max={200}
+        marks={mark}
+        valueLabelDisplay='auto'
+        onChange={(e)=>{getValueSlider(e)}} 
+        />
+      </div>
+      <Select 
+      value={course}
+      onChange={(e) => {updateCourse(e)}}
+       displayEmpty>
+      <MenuItem value="">Select Course</MenuItem>
+        <MenuItem value={1}>java</MenuItem>
+        <MenuItem value={2}>c++</MenuItem>
+        <MenuItem value={3}>javascript</MenuItem>
+        <MenuItem value={4}>Node</MenuItem>
+        <MenuItem value={5}>Vuejs</MenuItem>
+      </Select>
 
     </div>
   );
