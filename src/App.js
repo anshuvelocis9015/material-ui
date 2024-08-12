@@ -62,6 +62,7 @@ function App() {
   function getTable(e){
     console.log(e.target.value);
     setValue(e.target.value);
+    console.log("anshu kumar ---->");
   }
   return (
     <div className="App">
