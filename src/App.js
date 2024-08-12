@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import { useState } from 'react';
 import './App.css';
-import { Button, ButtonGroup, Radio, Select, Slider, MenuItem } from '@mui/material';
+import { Button, ButtonGroup, Radio, Select, Slider, MenuItem, TextField, Switch, Box, Container, Grid, Hidden, Tab, Tabs, AppBar } from '@mui/material';
 import {Stack} from '@mui/material';
 import { Delete,Favorite,FavoriteBorder } from '@mui/icons-material';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,8 +10,10 @@ function App() {
   const [disabledBtn, setDisabledBtn] = useState(false);
   const[name,setName] = useState([]);
   const[gender,setGender] = useState("male");
-  const[value,setValue] = useState([40,70]);
+  const[val,setVal] = useState([40,70]);
+  const[value,setValue]=useState(0);
   const[course,setCourse] = useState("");
+
   const mark = [
     {
       value: 0,
@@ -44,10 +46,22 @@ function App() {
   }
   function getValueSlider(e){
     console.log(e.target.value);
-    setValue(e.target.value);
+    setVal(e.target.value);
   }
   function updateCourse(e){
     setCourse(e.target.value);
+  }
+  function getText(e){
+    console.log(e.target.value);
+    console.log("anshu kumar");
+  }
+  function getSwitch(e){
+    console.log(e.target.checked);
+    console.log("anshu");
+  }
+  function getTable(e){
+    console.log(e.target.value);
+    setValue(e.target.value);
   }
   return (
     <div className="App">
@@ -102,7 +116,7 @@ function App() {
         <Slider
         color='secondary'
         // defaultValue={50}
-        value={value}
+        value={val}
         orientation='horizontal'
         step={20}
         max={200}
@@ -122,8 +136,76 @@ function App() {
         <MenuItem value={4}>Node</MenuItem>
         <MenuItem value={5}>Vuejs</MenuItem>
       </Select>
+      <TextField 
+      color='secondary'
+      variant='outlined'
+      label='enter your name'
+      onChange={(e) =>getText(e)}
+      />
 
+      <Switch 
+      color='secondary'
+      size='medium'
+      // checked={false}
+      onChange={(e) => getSwitch(e)}
+      />
+      <Box component="span" style={{color:'red'}}>
+        <Button>Hire Me</Button>
+      </Box>
+      <Container maxWidth="lg" style={{backgroundColor:"chocolate",margin:"20px"}} >My name is Anshu Kumar</Container>
+      <Container maxWidth="md" style={{backgroundColor:"chocolate",margin:"20px"}} >My name is Anshu Kumar</Container>
+      <Container maxWidth="sm" style={{backgroundColor:"chocolate",margin:"20px"}} >My name is Anshu Kumar</Container>
+      <Container maxWidth="xs" style={{backgroundColor:"chocolate",margin:"20px"}} >My name is Anshu Kumar</Container>
+      <Container fixed style={{backgroundColor:"chocolate",margin:"20px"}} >My name is Anshu Kumar</Container>
+      <Grid item container spacing={2}>
+        <Grid item xs={12} sm={6} md={3} lg={3}>
+          <div style={{backgroundColor:"lightblue",padding:"20px",margin:"10px"}}>Grid 1</div>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <div style={{backgroundColor:"lightgreen",padding:"20px",margin:"10px"}}>Grid 2</div>
+        </Grid>
+        <Hidden only="md">
+        <Grid item xs={12} sm={6} md={3}>
+          <div style={{backgroundColor:"lightpink",padding:"20px",margin:"10px"}}>Grid 3</div>
+        </Grid>
+        </Hidden>
+        <Grid item xs={12} sm={6} md={3}>
+          <div style={{backgroundColor:"lightyellow",padding:"20px",margin:"10px"}}>Grid 4</div>
+        </Grid>
+      </Grid>
+      <AppBar position='static'>
+        <Tabs value={value} onChange={(e) => getTable(e)} >
+          <Tab label="Home" />
+          <Tab label="About" />
+          <Tab label="Contact" />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        Home
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        About
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        Contact
+      </TabPanel>
+      
     </div>
   );
 }
+function TabPanel(props) {
+  const { children, value, index } = props;
+  return (
+    <div>
+     {
+      value === index && (
+        <Box p={3}>
+          <div>{children}</div>
+        </Box>
+      )
+     }
+    </div>
+  );
+}
+
 export default App;
